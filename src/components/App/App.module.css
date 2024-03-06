@@ -1,5 +1,6 @@
-#root {
+.mainContainer {
+  padding: 5px 10px;
   max-width: 1280px;
-  /* margin: 0 auto;
-  text-align: center; */
+  margin: 0 auto;
+  text-align: center;
 }
