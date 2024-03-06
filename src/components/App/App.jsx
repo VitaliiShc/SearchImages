@@ -7,28 +7,35 @@ import ImageGallery from '../ImageGallery/ImageGallery';
 import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn';
 import Loader from '../Loader/Loader';
 import SearchBar from '../SearchBar/SearchBar';
-import { fetchImgs } from '../../unsplash-api.js';
+import { getImgs } from '../../unsplash-api.js';
+
+// setShowBtn(total_pages && total_pages !== page);
+
+// {
+//   showBtn && <button> Load more ... </button>;
+// }
 
 const App = () => {
   const [images, setImages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
   const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     if (searchQuery === '') {
       return;
     }
-    async function getImgs() {
+    async function fetchImgs() {
       try {
         setIsLoading(true);
         setError(false);
-        const data = await fetchImgs(searchQuery, page);
+        const data = await getImgs(searchQuery, page);
         console.log('data: ', data);
-
+        setTotalPages(data.total_pages);
         setImages((prevImages) => {
-          return [...prevImages, ...data];
+          return [...prevImages, ...data.results];
         });
       } catch (error) {
         setError(true);
@@ -36,13 +43,15 @@ const App = () => {
         setIsLoading(false);
       }
     }
-    getImgs();
+    fetchImgs();
   }, [searchQuery, page]);
 
   const handleSearh = (newQuery) => {
     setSearchQuery(newQuery);
     setPage(1);
+    setTotalPages(0);
     setImages([]);
+    setError(false);
   };
 
   const handleLoadMore = () => {
@@ -56,10 +65,9 @@ const App = () => {
         {images.length > 0 && <ImageGallery items={images} />}
         {error && <ErrorMessage />}
         {isLoading && <Loader />}
-        {images.length > 0 && !isLoading && (
+        {totalPages > page && !isLoading && !error && (
           <LoadMoreBtn onClick={handleLoadMore} />
         )}
-
         {/* <ImageModal /> */}
       </main>
     </>
