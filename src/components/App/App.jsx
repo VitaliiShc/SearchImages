@@ -1,19 +1,15 @@
-import css from './App.module.css';
+import { useEffect, useState, useRef } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 
-import { useEffect, useState } from 'react';
+import css from './App.module.css';
+import { getImgs } from '../../unsplash-api.js';
+
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import ImageGallery from '../ImageGallery/ImageGallery';
-// import ImageModal from '../ImageModal/ImageModal';
+import ImageModal from '../ImageModal/ImageModal';
 import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn';
 import Loader from '../Loader/Loader';
 import SearchBar from '../SearchBar/SearchBar';
-import { getImgs } from '../../unsplash-api.js';
-
-// setShowBtn(total_pages && total_pages !== page);
-
-// {
-//   showBtn && <button> Load more ... </button>;
-// }
 
 const App = () => {
   const [images, setImages] = useState([]);
@@ -22,6 +18,10 @@ const App = () => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedImg, setSelectedImg] = useState(null);
+
+  const loadMoreBtn = useRef();
 
   useEffect(() => {
     if (searchQuery === '') {
@@ -32,13 +32,19 @@ const App = () => {
         setIsLoading(true);
         setError(false);
         const data = await getImgs(searchQuery, page);
-        console.log('data: ', data);
+
+        if (data.total === 0) {
+          return toast.error('No images available for your request', {
+            icon: '🤷‍♂️',
+          });
+        }
         setTotalPages(data.total_pages);
         setImages((prevImages) => {
           return [...prevImages, ...data.results];
         });
       } catch (error) {
         setError(true);
+        // return toast.error('Error! Reload the page!', {});
       } finally {
         setIsLoading(false);
       }
@@ -46,7 +52,18 @@ const App = () => {
     fetchImgs();
   }, [searchQuery, page]);
 
+  useEffect(() => {
+    let dims = loadMoreBtn.current.getBoundingClientRect();
+    window.scrollTo({
+      top: dims.bottom,
+      behavior: 'smooth',
+    });
+  }, [images, page]);
+
   const handleSearh = (newQuery) => {
+    if (newQuery === searchQuery) {
+      return;
+    }
     setSearchQuery(newQuery);
     setPage(1);
     setTotalPages(0);
@@ -58,18 +75,35 @@ const App = () => {
     setPage(page + 1);
   };
 
+  const showModal = (itemImg) => {
+    if (!isModalOpen) {
+      setSelectedImg(itemImg);
+      setIsModalOpen(true);
+    }
+  };
+
+  const hideModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <>
       <SearchBar onSearch={handleSearh} />
-      <main className={css.mainContainer}>
-        {images.length > 0 && <ImageGallery items={images} />}
-        {error && <ErrorMessage />}
-        {isLoading && <Loader />}
+      <main className={css.mainContainer} ref={loadMoreBtn}>
+        {images.length > 0 && (
+          <ImageGallery items={images} showModal={showModal} />
+        )}
         {totalPages > page && !isLoading && !error && (
           <LoadMoreBtn onClick={handleLoadMore} />
         )}
-        {/* <ImageModal /> */}
+        {error && <ErrorMessage />} {isLoading && <Loader />}
       </main>
+      <ImageModal
+        isModalOpen={isModalOpen}
+        selectedImg={selectedImg}
+        hideModal={hideModal}
+      />
+      <Toaster position="top-center" containerStyle={{ top: 40 }} />
     </>
   );
 };

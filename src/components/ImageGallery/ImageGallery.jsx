@@ -1,16 +1,17 @@
 import css from './ImageGallery.module.css';
 
-import ImageCard from "../ImageCard/ImageCard";
+import ImageCard from '../ImageCard/ImageCard';
 
-const ImageGallery = ({ items }) => {
+const ImageGallery = ({ items, showModal }) => {
   return (
     <ul className={css.list}>
       {items.map((item) => (
-        <ImageCard key={item.id} item={item} />
+        <li key={item.id}>
+          <ImageCard item={item} showModal={showModal} />
+        </li>
       ))}
     </ul>
   );
 };
 
-// ;
 export default ImageGallery;
