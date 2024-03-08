@@ -18,7 +18,6 @@ const App = () => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedImg, setSelectedImg] = useState(null);
 
   const loadMoreBtn = useRef();
@@ -76,14 +75,11 @@ const App = () => {
   };
 
   const showModal = (itemImg) => {
-    if (!isModalOpen) {
-      setSelectedImg(itemImg);
-      setIsModalOpen(true);
-    }
+    setSelectedImg(itemImg);
   };
 
   const hideModal = () => {
-    setIsModalOpen(false);
+    setSelectedImg(null);
   };
 
   return (
@@ -99,7 +95,7 @@ const App = () => {
         {error && <ErrorMessage />} {isLoading && <Loader />}
       </main>
       <ImageModal
-        isModalOpen={isModalOpen}
+        isModalOpen={!!selectedImg}
         selectedImg={selectedImg}
         hideModal={hideModal}
       />

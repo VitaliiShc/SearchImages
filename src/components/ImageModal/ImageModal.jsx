@@ -20,7 +20,7 @@ const ImageModal = ({ isModalOpen, hideModal, selectedImg }) => {
       {selectedImg && (
         <div className={css.modalContainer}>
           <button className={css.modalCloseBtn} onClick={hideModal}>
-            <IoClose size={24} className={css.closeIcon}/>
+            <IoClose size={24} className={css.closeIcon} />
           </button>
           <img
             className={css.image}
@@ -43,3 +43,6 @@ const ImageModal = ({ isModalOpen, hideModal, selectedImg }) => {
 };
 
 export default ImageModal;
+
+// Наразі компонент не можна використати повторно з різними структурами даних. Було б краще відокремити ImageModal від будь-якої конкретної форми даних та дозволити йому отримувати необхідну інформацію через пропси.
+// Реалізуйте перевірки на null або значення за замовчуванням для властивостей selectedImg, щоб уникнути помилок під час виконання та забезпечити можливість компоненту гарно обробляти відсутні дані. (src="https://dummyimage.com/600x400/a9a9a9/00008b.jpg&text=No+Image+Available")
