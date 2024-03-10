@@ -1,21 +1,30 @@
 import css from './ImageCard.module.css';
 
-const ImageCard = ({ item, showModal }) => {
+const ImageCard = ({
+  image: { urlSmall, alt, description, urlRegular, likes, user },
+  showModal,
+}) => {
   return (
     <div
       className={css.card}
       onClick={() => {
-        showModal(item);
+        showModal({
+          alt,
+          description,
+          urlRegular,
+          likes,
+          user,
+        });
       }}
     >
       <img
-        src={item.urls.small}
-        alt={item.alt_description}
+        src={urlSmall}
+        alt={alt}
         className={css.image}
         loading="lazy"
         width="300"
       />
-      <p className={css.tooltip}>{item.alt_description}</p>
+      <p className={css.tooltip}>{description || alt}</p>
     </div>
   );
 };

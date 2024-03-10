@@ -1,8 +1,9 @@
-import { useEffect, useState, useRef } from 'react';
-import toast, { Toaster } from 'react-hot-toast';
-
 import css from './App.module.css';
-import { getImgs } from '../../unsplash-api.js';
+
+import toast, { Toaster } from 'react-hot-toast';
+import { useEffect, useState, useRef } from 'react';
+
+import { getImgs } from '../../query-api/unsplash-api.js';
 
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import ImageGallery from '../ImageGallery/ImageGallery';
@@ -87,7 +88,7 @@ const App = () => {
       <SearchBar onSearch={handleSearh} />
       <main className={css.mainContainer} ref={loadMoreBtn}>
         {images.length > 0 && (
-          <ImageGallery items={images} showModal={showModal} />
+          <ImageGallery images={images} showModal={showModal} />
         )}
         {totalPages > page && !isLoading && !error && (
           <LoadMoreBtn onClick={handleLoadMore} />
