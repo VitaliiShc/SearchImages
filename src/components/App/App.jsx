@@ -77,10 +77,12 @@ const App = () => {
 
   const showModal = (itemImg) => {
     setSelectedImg(itemImg);
+    document.body.classList.add(css.noScroll);
   };
 
   const hideModal = () => {
     setSelectedImg(null);
+    document.body.classList.remove(css.noScroll);
   };
 
   return (

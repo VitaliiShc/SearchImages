@@ -1,7 +1,7 @@
 import css from './ImageCard.module.css';
 
 const ImageCard = ({
-  image: { urlSmall, alt, description, urlRegular, likes, user },
+  image: { srcSmall, alt, description, srcRegular, likes, user, urlUserPage },
   showModal,
 }) => {
   return (
@@ -11,14 +11,15 @@ const ImageCard = ({
         showModal({
           alt,
           description,
-          urlRegular,
+          srcRegular,
           likes,
           user,
+          urlUserPage,
         });
       }}
     >
       <img
-        src={urlSmall}
+        src={srcSmall}
         alt={alt}
         className={css.image}
         loading="lazy"

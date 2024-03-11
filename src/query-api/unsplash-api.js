@@ -21,16 +21,17 @@ export const getImgs = async (searchQuery, page) => {
   results.map((item) => {
     requiredValues.push({
       id: item.id,
-      urlSmall:
+      srcSmall:
         item.urls.small ||
         'https://dummyimage.com/600x400/a9a9a9/00008b.jpg&text=No+Image+Available',
       alt: item.alt_description,
-      urlRegular:
+      srcRegular:
         item.urls.regular ||
         'https://dummyimage.com/600x400/a9a9a9/00008b.jpg&text=No+Image+Available',
       description: item.description,
       likes: item.likes,
-      user: item.user.username,
+      user: item.user.name,
+      urlUserPage: item.user.links.html,
     });
   });
 

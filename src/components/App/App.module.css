@@ -4,3 +4,8 @@
   margin: 0 auto;
   text-align: center;
 }
+
+.noScroll {
+  overflow: hidden;
+  margin-right: 17px;
+}

@@ -20,7 +20,7 @@ const ImageModal = ({ isModalOpen, hideModal, selectedImg }) => {
           </button>
           <img
             className={css.image}
-            src={selectedImg.urlRegular}
+            src={selectedImg.srcRegular}
             alt={selectedImg.alt}
           />
           <div className={css.imgInfo}>
@@ -29,7 +29,12 @@ const ImageModal = ({ isModalOpen, hideModal, selectedImg }) => {
             </p>
             <div className={css.userInfo}>
               <p>{selectedImg.likes} likes</p>
-              <p>User: {selectedImg.user}</p>
+              <p>
+                User:{' '}
+                <a href={selectedImg.urlUserPage} target="_blank">
+                  {selectedImg.user}
+                </a>
+              </p>
             </div>
           </div>
         </div>
