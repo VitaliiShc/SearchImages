@@ -34,7 +34,6 @@ const SearchBar = ({ onSearch }) => {
           </Form>
         </Formik>
       </header>
-      
     </>
   );
 };

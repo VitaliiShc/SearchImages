@@ -9,7 +9,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-right: 15px; /* correction hiding scrollbar for 'no body scrolling' when the modal is open (App.module.css) */
+  padding-right: 17px; /* correction hiding scrollbar for 'no body scrolling' when the modal is open (App.module.css) */
 }
 
 .modal {

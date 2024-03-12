@@ -1,5 +1,5 @@
 .mainContainer {
-  padding: 0px 10px 5px;
+  padding: 4px 10px 5px;
   max-width: 1280px;
   margin: 0 auto;
   text-align: center;
@@ -7,5 +7,5 @@
 
 .noScroll {
   overflow: hidden;
-  margin-right: 15px;
+  margin-right: 17px;
 }
