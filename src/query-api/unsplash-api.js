@@ -17,9 +17,8 @@ export const getImgs = async (searchQuery, page) => {
 
   const { total, total_pages, results } = response.data;
 
-  const requiredValues = [];
-  results.map((item) => {
-    requiredValues.push({
+  const requiredValues = results.map((item) => {
+    return {
       id: item.id,
       srcSmall:
         item.urls.small ||
@@ -32,10 +31,10 @@ export const getImgs = async (searchQuery, page) => {
       likes: item.likes,
       user: item.user.name,
       urlUserPage: item.user.links.html,
-    });
+    };
   });
 
-  const data = { total, total_pages, results: requiredValues };
+  const requiredData = { total, total_pages, results: requiredValues };
 
-  return data;
+  return requiredData;
 };

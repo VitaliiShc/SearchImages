@@ -3,14 +3,14 @@ import css from './App.module.css';
 import toast, { Toaster } from 'react-hot-toast';
 import { useEffect, useState, useRef } from 'react';
 
-import { getImgs } from '../../query-api/unsplash-api.js';
+import { getImgs } from '../query-api/unsplash-api.js';
 
-import ErrorMessage from '../ErrorMessage/ErrorMessage';
-import ImageGallery from '../ImageGallery/ImageGallery';
-import ImageModal from '../ImageModal/ImageModal';
-import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn';
-import Loader from '../Loader/Loader';
-import SearchBar from '../SearchBar/SearchBar';
+import ErrorMessage from '../components/ErrorMessage/ErrorMessage.jsx';
+import ImageGallery from '../components/ImageGallery/ImageGallery.jsx';
+import ImageModal from '../components/ImageModal/ImageModal.jsx';
+import LoadMoreBtn from '../components/LoadMoreBtn/LoadMoreBtn.jsx';
+import Loader from '../components/Loader/Loader.jsx';
+import SearchBar from '../components/SearchBar/SearchBar.jsx';
 
 const App = () => {
   const [images, setImages] = useState([]);
@@ -32,6 +32,7 @@ const App = () => {
         setIsLoading(true);
         setError(false);
         const data = await getImgs(searchQuery, page);
+        console.log(data);
 
         if (data.total === 0) {
           return toast.error('No images available for your request', {
