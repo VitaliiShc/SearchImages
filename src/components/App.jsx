@@ -32,7 +32,6 @@ const App = () => {
         setIsLoading(true);
         setError(false);
         const data = await getImgs(searchQuery, page);
-        console.log(data);
 
         if (data.total === 0) {
           return toast.error('No images available for your request', {
