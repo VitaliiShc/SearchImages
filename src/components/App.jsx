@@ -58,7 +58,7 @@ const App = () => {
       top: dims.bottom,
       behavior: 'smooth',
     });
-  }, [images, page]);
+  }, [images, page]); // ???
 
   const handleSearh = (newQuery) => {
     if (newQuery === searchQuery) {
@@ -88,14 +88,16 @@ const App = () => {
   return (
     <>
       <SearchBar onSearch={handleSearh} />
-      <main className={css.mainContainer} ref={loadMoreBtn}>
+      <main className={css.mainContainer}>
         {images.length > 0 && (
           <ImageGallery images={images} showModal={showModal} />
         )}
-        {totalPages > page && !isLoading && !error && (
-          <LoadMoreBtn onClick={handleLoadMore} />
-        )}
         {error && <ErrorMessage />} {isLoading && <Loader />}
+        <div ref={loadMoreBtn}>
+          {totalPages > page && !isLoading && !error && (
+            <LoadMoreBtn onClick={handleLoadMore} />
+          )}
+        </div>
       </main>
       <ImageModal
         isModalOpen={!!selectedImg}
