@@ -17,7 +17,7 @@ export const getImgs = async (searchQuery, page) => {
 
   const { total, total_pages, results } = response.data;
 
-  const requiredValues = results.map((item) => {
+  const requiredValues = await results.map((item) => {
     return {
       id: item.id,
       srcSmall:

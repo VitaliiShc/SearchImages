@@ -58,7 +58,7 @@ const App = () => {
       top: dims.bottom,
       behavior: 'smooth',
     });
-  }, [images, page]); // ???
+  }, [images, page]);
 
   const handleSearh = (newQuery) => {
     if (newQuery === searchQuery) {
