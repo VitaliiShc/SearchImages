@@ -1,18 +1,18 @@
-import css from './SearchBar.module.css';
+import css from "./SearchBar.module.css";
 
-import { Field, Form, Formik } from 'formik';
-import { CiSearch } from 'react-icons/ci';
-import toast from 'react-hot-toast';
+import { Field, Form, Formik } from "formik";
+import { CiSearch } from "react-icons/ci";
+import toast from "react-hot-toast";
 
 const SearchBar = ({ onSearch }) => {
   return (
     <>
       <header className={css.header}>
         <Formik
-          initialValues={{ query: '' }}
+          initialValues={{ query: "" }}
           onSubmit={(values, actions) => {
-            if (values.query.trim() === '') {
-              toast.error('Please enter a search word!', {});
+            if (values.query.trim() === "") {
+              toast.error("Please enter a search word!", {});
               return;
             }
             onSearch(values.query);

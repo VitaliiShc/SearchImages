@@ -1,8 +1,8 @@
-import css from './ImageModal.module.css';
+import css from "./ImageModal.module.css";
 
-import Modal from 'react-modal';
-Modal.setAppElement('#root');
-import { IoClose } from 'react-icons/io5';
+import Modal from "react-modal";
+Modal.setAppElement("#root");
+import { IoClose } from "react-icons/io5";
 
 const ImageModal = ({ isModalOpen, hideModal, selectedImg }) => {
   return (
@@ -30,7 +30,7 @@ const ImageModal = ({ isModalOpen, hideModal, selectedImg }) => {
             <div className={css.userInfo}>
               <p>{selectedImg.likes} likes</p>
               <p>
-                User:{' '}
+                User:{" "}
                 <a href={selectedImg.urlUserPage} target="_blank">
                   {selectedImg.user}
                 </a>

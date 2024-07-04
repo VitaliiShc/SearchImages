@@ -1,16 +1,16 @@
-import css from './App.module.css';
+import css from "./App.module.css";
 
-import toast, { Toaster } from 'react-hot-toast';
-import { useEffect, useState, useRef } from 'react';
+import toast, { Toaster } from "react-hot-toast";
+import { useEffect, useState, useRef } from "react";
 
-import { getImgs } from '../query-api/unsplash-api.js';
+import { getImgs } from "../query-api/unsplash-api.js";
 
-import ErrorMessage from '../components/ErrorMessage/ErrorMessage.jsx';
-import ImageGallery from '../components/ImageGallery/ImageGallery.jsx';
-import ImageModal from '../components/ImageModal/ImageModal.jsx';
-import LoadMoreBtn from '../components/LoadMoreBtn/LoadMoreBtn.jsx';
-import Loader from '../components/Loader/Loader.jsx';
-import SearchBar from '../components/SearchBar/SearchBar.jsx';
+import ErrorMessage from "../components/ErrorMessage/ErrorMessage.jsx";
+import ImageGallery from "../components/ImageGallery/ImageGallery.jsx";
+import ImageModal from "../components/ImageModal/ImageModal.jsx";
+import LoadMoreBtn from "../components/LoadMoreBtn/LoadMoreBtn.jsx";
+import Loader from "../components/Loader/Loader.jsx";
+import SearchBar from "../components/SearchBar/SearchBar.jsx";
 
 const App = () => {
   const [images, setImages] = useState([]);
@@ -18,13 +18,13 @@ const App = () => {
   const [error, setError] = useState(false);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [selectedImg, setSelectedImg] = useState(null);
 
   const loadMoreBtn = useRef();
 
   useEffect(() => {
-    if (searchQuery === '') {
+    if (searchQuery === "") {
       return;
     }
     async function fetchImgs() {
@@ -32,10 +32,9 @@ const App = () => {
         setIsLoading(true);
         setError(false);
         const data = await getImgs(searchQuery, page);
-
         if (data.total === 0) {
-          return toast.error('No images available for your request', {
-            icon: '🤷‍♂️',
+          return toast.error("No images available for your request", {
+            icon: "🤷‍♂️",
           });
         }
         setTotalPages(data.total_pages);
@@ -44,7 +43,6 @@ const App = () => {
         });
       } catch (error) {
         setError(true);
-        // return toast.error('Error! Reload the page!', {});
       } finally {
         setIsLoading(false);
       }
@@ -56,7 +54,7 @@ const App = () => {
     let dims = loadMoreBtn.current.getBoundingClientRect();
     window.scrollTo({
       top: dims.bottom,
-      behavior: 'smooth',
+      behavior: "smooth",
     });
   }, [images, page]);
 
